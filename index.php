@@ -1,7 +1,10 @@
 <?php
+// Initialize Sessions
+session_start();
 
-include_once 'models/Database.php';
+// Determine if user is logged in
+$is_logged_in = $_SESSION['is_logged_in'];
 
-$db = new Database();
-
-var_dump($db->connect()->query('select * from student'));
+if ($is_logged_in === null || $is_logged_in === false) {
+  header('location: login.php');
+}
