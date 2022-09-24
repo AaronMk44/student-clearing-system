@@ -1,0 +1,100 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #ddd;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+.title{
+    text-align: center;
+    padding: 50px 0 20px;
+}
+.title h1{
+    margin: 0;
+    padding: 0;
+    color: darkblue;
+    text-transform: uppercase;
+    font-size: 36px;
+}
+.container{
+    width: 50%;
+    height: 400px;
+    background-color:white ;
+    margin: 0 auto;
+    box-shadow: 0 10px 20px rgba(0,0,0,.3);
+}
+.container .left{
+    float: left;
+    width: 50%;
+    background-size: cover;
+    box-sizing: border-box;
+    background-color: darkblue;
+    width: 50%;
+    height: 400px;
+    
+}
+.left img{
+    width: 350px;
+}
+.container .right{
+     float: right;
+     width: 50%;
+     height: 400px;
+     box-sizing: border-box;
+
+}
+.formBox{
+    width: 100%;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    height: 400px;
+    
+}
+.formBox p{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-bottom: 10px;
+    color: darkblue;
+    font-weight: bold;
+}
+.formBox input{
+    margin-bottom: 20px;
+    width: 100%;
+}
+.formBox input[type="text"],
+.formBox input[type="password"]{
+    border: none;
+    border-bottom: 2px solid rgba(0,0,0,.3);
+    outline: none;
+    height: 40px;
+    color: darkblue;
+    font-weight: bold;
+}
+.formBox input[type="text"]:focus,
+.formBox input[type="password"]:focus{
+    border-bottom: 2px solid darkblue;
+
+}
+.formBox input[type="submit"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+    background-color: darkblue;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.formBox input[type="submit"]:hover{
+    background-color: white;
+    color: darkblue;
+    border: 2px solid darkblue;
+}
+.formBox a{
+    color: darkblue;
+    font-size: 12px;
+    font-weight: bold;
+
+}
