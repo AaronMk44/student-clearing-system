@@ -24,8 +24,8 @@ class AdminModel
       ) 
       values 
       (
-        '$a->firstName', '$a->lastName', '$a->gender'
-        '$a->adminRole','$a->email', '$hashedPasssword'
+        '$a->firstName', '$a->lastName', '$a->gender','$a->adminRole',
+        '$a->email', '$hashedPasssword'
       )";
 
     try {
@@ -74,5 +74,27 @@ class AdminModel
     } catch (\Throwable $th) {
       return false;
     }
+  }
+
+  public function getHODs(): array
+  {
+    $sql = "select * from $this->TABLE where admin_role = 'hod'";
+
+    $result = $this->db->connect()->query($sql);
+    $hods = [];
+
+    foreach ($result as $r) {
+      $a = new Admin();
+      $a->adminID = $r['admin_id'];
+      $a->firstName = $r['first_name'];
+      $a->lastName = $r['last_name'];
+      $a->gender = $r['gender'];
+      $a->adminRole = $r['admin_role'];
+      $a->email = $r['email'];
+
+      $hods[] = $a;
+    }
+
+    return $hods;
   }
 }
