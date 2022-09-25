@@ -132,12 +132,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 </div>
               </div>
               <div class="mb-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="remember-me" />
-                  <label class="form-check-label" for="remember-me"> Remember Me </label>
-                </div>
-              </div>
-              <div class="mb-3">
                 <button class="btn btn-primary d-grid w-100" type="submit">Log in</button>
               </div>
             </form>
