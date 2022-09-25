@@ -4,7 +4,7 @@ class Database
 {
   public function __construct()
   {
-    $this->conn = new mysqli('localhost', 'root', '', 'clearing_db');
+    $this->conn = new mysqli('localhost', 'root', '', 'student_clearing_system');
   }
   public function __destruct()
   {
