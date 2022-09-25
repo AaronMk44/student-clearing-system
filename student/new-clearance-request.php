@@ -5,13 +5,13 @@ session_start();
 
 include_once '../DTOs/Student.php';
 include_once '../models/StudentModel.php';
-$studentModel = new StudentModel();
-$student = $studentModel->find($_SESSION['user_email']);
+include_once '../DTOs/Admin.php';
+include_once '../models/AdminModel.php';
 
 // -----------------------------------------------
 
-include_once '../DTOs/Admin.php';
-include_once '../models/AdminModel.php';
+$studentModel = new StudentModel();
+$student = $studentModel->find($_SESSION['user_email']);
 
 $adminModel = new AdminModel();
 $hods = $adminModel->getHODs();
