@@ -79,7 +79,7 @@ $student = $model->find($_SESSION['user_email']);
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="dashboard.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -100,7 +100,7 @@ $student = $model->find($_SESSION['user_email']);
               </a>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="pending-forms.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Pending Forms</div>
