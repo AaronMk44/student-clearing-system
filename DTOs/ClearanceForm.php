@@ -3,31 +3,31 @@
 class ClearanceForm
 {
   public function __construct(
-    public int $formID,
-    public string $studentID,
-    public string $studentName,
-    public string $yearOfStudy,
-    public string $roomNo,
-    public string $term,
+    public int $formID = 0,
+    public string $studentID = '',
+    public string $studentName = '',
+    public string $yearOfStudy = '',
+    public string $roomNo = '',
+    public string $term = '',
 
-    public string $hodName,
-    public string $hodApprovalStatus,
-    public string $hodApprovalDate,
+    public string $hodName = '',
+    public string $hodApprovalStatus = 'pending',
+    public string $hodApprovalDate = '',
 
-    public string $hostelRepName,
-    public string $hsotelRepApprovalStatus,
-    public string $hostelItemsDue,
-    public string $hostelRepApprovalDate,
+    public string $hostelRepName = '',
+    public string $hsotelRepApprovalStatus = 'pending',
+    public string $hostelItemsDue = '',
+    public string $hostelRepApprovalDate = '',
 
-    public string $librarianName,
-    public string $librarianApprovalStatus,
-    public string $libraryItemsDue,
-    public string $librarianApprovalDate,
+    public string $librarianName = '',
+    public string $librarianApprovalStatus = 'pending',
+    public string $libraryItemsDue = '',
+    public string $librarianApprovalDate = '',
 
-    public string $accountantName,
-    public string $accountantApprovalStatus,
-    public float $accountsRunningBalance,
-    public string $accountantApprovalDate,
+    public string $accountantName = '',
+    public string $accountantApprovalStatus = 'pending',
+    public float $accountsRunningBalance = 0.0,
+    public string $accountantApprovalDate = ''
   ) {
   }
 }
