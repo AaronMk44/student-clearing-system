@@ -97,4 +97,67 @@ class AdminModel
 
     return $hods;
   }
+
+  public function getAccountant(): Admin
+  {
+    $sql = "select * from $this->TABLE where admin_role = 'accountant' limit 1";
+
+    $result = $this->db->connect()->query($sql);
+
+    $a = new Admin();
+
+    foreach ($result as $r) {
+      $a->adminID = $r['admin_id'];
+      $a->firstName = $r['first_name'];
+      $a->lastName = $r['last_name'];
+      $a->gender = $r['gender'];
+      $a->adminRole = $r['admin_role'];
+      $a->email = $r['email'];
+      $a->password = $r['password'];
+    }
+
+    return $a;
+  }
+
+  public function getLibrarian(): Admin
+  {
+    $sql = "select * from $this->TABLE where admin_role = 'librarian' limit 1";
+
+    $result = $this->db->connect()->query($sql);
+
+    $a = new Admin();
+
+    foreach ($result as $r) {
+      $a->adminID = $r['admin_id'];
+      $a->firstName = $r['first_name'];
+      $a->lastName = $r['last_name'];
+      $a->gender = $r['gender'];
+      $a->adminRole = $r['admin_role'];
+      $a->email = $r['email'];
+      $a->password = $r['password'];
+    }
+
+    return $a;
+  }
+
+  public function getHostelRep(): Admin
+  {
+    $sql = "select * from $this->TABLE where admin_role = 'hostel_representative' limit 1";
+
+    $result = $this->db->connect()->query($sql);
+
+    $a = new Admin();
+
+    foreach ($result as $r) {
+      $a->adminID = $r['admin_id'];
+      $a->firstName = $r['first_name'];
+      $a->lastName = $r['last_name'];
+      $a->gender = $r['gender'];
+      $a->adminRole = $r['admin_role'];
+      $a->email = $r['email'];
+      $a->password = $r['password'];
+    }
+
+    return $a;
+  }
 }
