@@ -25,7 +25,7 @@ $student = $model->find($_SESSION['user_email']);
 // -----------------------------------------------
 
 $fm = new ClearanceFormModel();
-$forms = $fm->getFormsFor($student->studentID);
+$forms = $fm->getPendingFormsFor($student->studentID);
 
 // -----------------------------------------------
 $message = '';
@@ -131,7 +131,7 @@ if ($_SESSION['flashmessage'] != '') {
             <!-- Search -->
             <div class="navbar-nav align-items-center">
               <div class="nav-item d-flex align-items-center">
-                <h4 class="pt-3">Student Clearing System</h4>
+                <h4 class="pt-3">Student Clearing System :: Student Portal</h4>
               </div>
             </div>
             <!-- /Search -->
@@ -188,32 +188,16 @@ if ($_SESSION['flashmessage'] != '') {
           <div class="container-xxl flex-grow-1 container-p-y">
             <?= $message ?>
             <br>
-            <div class="row">
-              <div class="col-lg-9 mb-4 order-0">
-                <div class="card">
-                  <div class="d-flex align-items-end row">
-                    <div class="col-sm-7">
-                      <div class="card-body">
-                        <h5 class="card-title text-primary">Welcome back <?= $student->firstName ?>! 🎉</h5>
-                        <p class="mb-4">
-                          Explore your collection of clearance <span class="fw-bold">forms</span> from previous months. Create a new clearance request whenever needed.
-                        </p>
-                      </div>
-                    </div>
-                    <div class="col-sm-5 text-center text-sm-left">
-                      <div class="card-body pb-0 px-0 px-md-4">
-                        <img src="../assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3">
-                <button class="btn btn-primary mx-auto">+ New Clearance Request</button>
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title text-primary">Welcome back <?= $student->firstName ?>! 🎉</h5>
+                <p class="mb-4">
+                  Explore your collection of clearance <span class="fw-bold">forms</span> from previous months. Create a new clearance request whenever needed.
+                </p>
               </div>
             </div>
             <div class="card">
-              <h5 class="card-header">Room Clearance Requests</h5>
+              <h5 class="card-header"><span class="text-primary">Pending</span> Room Clearance Requests</h5>
               <div class="table-responsive text-nowrap">
                 <table class="table table-striped">
                   <thead>
@@ -225,7 +209,6 @@ if ($_SESSION['flashmessage'] != '') {
                       <th>Librarian</th>
                       <th>Accountant</th>
                       <th>Status</th>
-                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody class="table-border-bottom-0">
@@ -240,7 +223,7 @@ if ($_SESSION['flashmessage'] != '') {
                         <td>
                           <?php if (
                             $form->hodApprovalStatus == 'pending' ||
-                            $form->hsotelRepApprovalStatus == 'pending' ||
+                            $form->hostelRepApprovalStatus == 'pending' ||
                             $form->librarianApprovalStatus == 'pending' ||
                             $form->accountantApprovalStatus == 'pending'
                           ) : ?>
@@ -249,16 +232,6 @@ if ($_SESSION['flashmessage'] != '') {
                       <?php else : ?>
                         <span class="badge bg-label-warning me-1">Pending</span></td>
                       <?php endif ?>
-                      <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="./generate-form.php?id=<?= $form->formID ?>">Download</a>
-                          </div>
-                        </div>
-                      </td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>

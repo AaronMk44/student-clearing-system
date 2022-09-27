@@ -131,7 +131,7 @@ if ($_SESSION['flashmessage'] != '') {
             <!-- Search -->
             <div class="navbar-nav align-items-center">
               <div class="nav-item d-flex align-items-center">
-                <h4 class="pt-3">Student Clearing System</h4>
+                <h4 class="pt-3">Student Clearing System :: Student Portal</h4>
               </div>
             </div>
             <!-- /Search -->
@@ -240,7 +240,7 @@ if ($_SESSION['flashmessage'] != '') {
                         <td>
                           <?php if (
                             $form->hodApprovalStatus == 'pending' ||
-                            $form->hsotelRepApprovalStatus == 'pending' ||
+                            $form->hostelRepApprovalStatus == 'pending' ||
                             $form->librarianApprovalStatus == 'pending' ||
                             $form->accountantApprovalStatus == 'pending'
                           ) : ?>
@@ -250,14 +250,26 @@ if ($_SESSION['flashmessage'] != '') {
                         <span class="badge bg-label-warning me-1">Pending</span></td>
                       <?php endif ?>
                       <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="./generate-form.php?id=<?= $form->formID ?>">Download</a>
+                        <?php if (
+                          // $form->hodApprovalStatus == 'pending' ||
+                          // $form->hostelRepApprovalStatus == 'pending' ||
+                          // $form->librarianApprovalStatus == 'pending' ||
+                          // $form->accountantApprovalStatus == 'pending'
+                          false
+                        ) : ?>
+                          Pending...
+
+                        <?php else : ?>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="./generate-form.php?id=<?= $form->formID ?>">Download</a>
+                            </div>
                           </div>
-                        </div>
+                        <?php endif ?>
+
                       </td>
                       </tr>
                     <?php endforeach; ?>
