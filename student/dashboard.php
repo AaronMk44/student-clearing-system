@@ -1,23 +1,26 @@
 <?php
 session_start();
 
+// -----------------------------------------------
+
+if (
+  $_SESSION['is_logged_in'] == null ||
+  $_SESSION['is_logged_in'] == false
+) {
+  header('location: ../login.php');
+}
+
+// -----------------------------------------------
+
 include_once '../DTOs/Student.php';
 include_once '../models/StudentModel.php';
+
+// -----------------------------------------------
+
 $model = new StudentModel();
 $student = $model->find($_SESSION['user_email']);
 
-// include_once '../DTOs/Admin.php';
-// include_once '../models/AdminModel.php';
-
-// $a = new Admin();
-// $a->firstName = 'Jack';
-// $a->lastName = 'Doe';
-// $a->gender = 'male';
-// $a->adminRole = 'librarian';
-// $a->email = 'jack@doe.com';
-// $a->password = '123456789';
-
-// (new AdminModel())->add($a);
+// -----------------------------------------------
 
 ?>
 
