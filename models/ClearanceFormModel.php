@@ -31,7 +31,7 @@ class ClearanceFormModel
       (
         $f->studentID,'$f->studentName',$f->yearOfStudy,
         '$f->roomNo','$f->term','$f->hostelRepName',	
-        '$f->hsotelRepApprovalStatus','$f->hostelItemsDue',	
+        '$f->hostelRepApprovalStatus','$f->hostelItemsDue',	
         '$f->hostelRepApprovalDate','$f->hodName','$f->hodApprovalStatus',	
         '$f->hodApprovalDate','$f->librarianName','$f->librarianApprovalStatus',	
         '$f->libraryItemsDue','$f->librarianApprovalDate',	
@@ -41,6 +41,45 @@ class ClearanceFormModel
     ";
 
     $this->db->connect()->query($sql);
+  }
+
+  public function find(int $formID): ClearanceForm
+  {
+    $sql = "select * from $this->TABLE where form_id = $formID";
+    $result = $this->db->connect()->query($sql);
+
+    $f = new ClearanceForm();
+
+    foreach ($result as $r) {
+
+      $f->formID = $r['form_id'];
+      $f->studentID = $r['student_id'];
+
+      $f->yearOfStudy = $r['student_year_of_study'];
+      $f->roomNo = $r['student_room_no'];
+      $f->term = $r['clear_for_term'];
+
+      $f->hodName = $r['hod_name'];
+      $f->hodApprovalStatus = $r['hod_approval_status'];
+      $f->hodApprovalDate = $r['hod_approval_date'];
+
+      $f->hostelRepName = $r['hostel_rep_name'];
+      $f->hostelRepApprovalStatus = $r['hostel_rep_approval_status'];
+      $f->hostelItemsDue = $r['hostel_items_due'];
+      $f->hostelRepApprovalDate = $r['hostel_rep_approval_date'];
+
+      $f->librarianName = $r['librarian_name'];
+      $f->librarianApprovalStatus = $r['librarian_approval_status'];
+      $f->libraryItemsDue = $r['library_items_due'];
+      $f->librarianApprovalDate = $r['librarian_approval_date'];
+
+      $f->accountantName = $r['accountant_name'];
+      $f->accountantApprovalStatus = $r['accountant_approval_status'];
+      $f->accountsRunningBalance = $r['student_running_balance'];
+      $f->accountantApprovalDate = $r['accountant_approval_date'];
+    }
+
+    return $f;
   }
 
   public function getFormsFor(int $studentID): array
@@ -55,7 +94,7 @@ class ClearanceFormModel
 
       $f->formID = $r['form_id'];
       $f->studentID = $r['student_id'];
-      $f->studentName = $r['student_name'];
+
       $f->yearOfStudy = $r['student_year_of_study'];
       $f->roomNo = $r['student_room_no'];
       $f->term = $r['clear_for_term'];
@@ -65,7 +104,7 @@ class ClearanceFormModel
       $f->hodApprovalDate = $r['hod_approval_date'];
 
       $f->hostelRepName = $r['hostel_rep_name'];
-      $f->hsotelRepApprovalStatus = $r['hostel_rep_approval_status'];
+      $f->hostelRepApprovalStatus = $r['hostel_rep_approval_status'];
       $f->hostelItemsDue = $r['hostel_items_due'];
       $f->hostelRepApprovalDate = $r['hostel_rep_approval_date'];
 
@@ -104,7 +143,7 @@ class ClearanceFormModel
 
       $f->formID = $r['form_id'];
       $f->studentID = $r['student_id'];
-      $f->studentName = $r['student_name'];
+
       $f->yearOfStudy = $r['student_year_of_study'];
       $f->roomNo = $r['student_room_no'];
       $f->term = $r['clear_for_term'];
@@ -114,7 +153,7 @@ class ClearanceFormModel
       $f->hodApprovalDate = $r['hod_approval_date'];
 
       $f->hostelRepName = $r['hostel_rep_name'];
-      $f->hsotelRepApprovalStatus = $r['hostel_rep_approval_status'];
+      $f->hostelRepApprovalStatus = $r['hostel_rep_approval_status'];
       $f->hostelItemsDue = $r['hostel_items_due'];
       $f->hostelRepApprovalDate = $r['hostel_rep_approval_date'];
 
@@ -154,7 +193,7 @@ class ClearanceFormModel
 
       $f->formID = $r['form_id'];
       $f->studentID = $r['student_id'];
-      $f->studentName = $r['student_name'];
+
       $f->yearOfStudy = $r['student_year_of_study'];
       $f->roomNo = $r['student_room_no'];
       $f->term = $r['clear_for_term'];
@@ -164,7 +203,7 @@ class ClearanceFormModel
       $f->hodApprovalDate = $r['hod_approval_date'];
 
       $f->hostelRepName = $r['hostel_rep_name'];
-      $f->hsotelRepApprovalStatus = $r['hostel_rep_approval_status'];
+      $f->hostelRepApprovalStatus = $r['hostel_rep_approval_status'];
       $f->hostelItemsDue = $r['hostel_items_due'];
       $f->hostelRepApprovalDate = $r['hostel_rep_approval_date'];
 

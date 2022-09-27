@@ -15,7 +15,7 @@ class ClearanceForm
     public string $hodApprovalDate = '',
 
     public string $hostelRepName = '',
-    public string $hsotelRepApprovalStatus = 'pending',
+    public string $hostelRepApprovalStatus = 'pending',
     public string $hostelItemsDue = '',
     public string $hostelRepApprovalDate = '',
 
