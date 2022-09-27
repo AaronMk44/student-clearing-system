@@ -1,6 +1,31 @@
 <?php
+session_start();
 
+// -----------------------------------------------
+
+if (
+  $_SESSION['is_logged_in'] == null ||
+  $_SESSION['is_logged_in'] == false
+) {
+  header('location: ../login.php');
+}
+
+// ---------------------------------------------
+
+include_once '../models/ClearanceFormModel.php';
+include_once '../models/StudentModel.php';
+include_once '../DTOs/ClearanceForm.php';
+include_once '../DTOs/Student.php';
 require_once '../vendor/autoload.php';
+
+$fmID = $_GET['id'];
+
+$fm = new ClearanceFormModel();
+$sm = new StudentModel();
+
+$form = $fm->find($fmID);
+$s = $sm->findByID($form->studentID);
+
 
 $tpl =
   '
@@ -36,40 +61,40 @@ $tpl =
       <table>
         <tr>
           <th>Student\'s Name:</th>
-          <td>Some name</td>
+          <td>' . $s->firstName . ' ' . $s->lastName . '</td>
         </tr>
 
         <tr>
           <th>Postal Address:</th>
-          <td>Some address</td>
+          <td>' . $s->postalAddress . '</td>
         </tr>
         <tr>
           <th>Residential Address:</th>
-          <td>Some address again</td>
+          <td>' . $s->residentialAddress . '</td>
         </tr>
       </table>
       <table>
         <tr>
           <th>Student ID:</th>
-          <td>Some id</td>
+          <td>' . $s->studentID . '</td>
           <th>NRC:</th>
-          <td>Some NRC</td>
+          <td>' . $s->nrc . '</td>
         </tr>
       </table>
       <table>
         <tr>
-          <th>Course Name:</th>
-          <td>Some course</td>
+          <th>Program Name:</th>
+          <td>' . $s->program . '</td>
         </tr>
       </table>
       <table>
         <tr>
           <th>Course Coordinator:</th>
-          <td>Some id</td>
+          <td>' . $form->hodName . '</td>
           <th>Sign:</th>
-          <td>sig</td>
+          <td>' . $form->hodApprovalStatus . '</td>
           <th>Date:</th>
-          <td>Some date</td>
+          <td>' . date('d-m-Y', strtotime($form->hodApprovalDate)) . '</td>
         </tr>
       </table>
       <br>
@@ -80,21 +105,21 @@ $tpl =
       <table>
         <tr>
           <th>Library Status:</th>
-          <td>Cleared or Not Cleared</td>
+          <td>Cleared/ Not Cleared</td>
         </tr>
       </table>
       <table>
         <tr>
           <th>Items Due:</th>
-          <td>Some items</td>
+          <td>' . $form->libraryItemsDue . '</td>
         </tr>
       </table>
       <table>
         <tr>
           <th>Signed by the Librarian:</th>
-          <td>The sig</td>
+          <td>' . $form->librarianApprovalStatus . '</td>
           <th>Date Signed:</th>
-          <td>some date</td>
+          <td>' . date('d-m-Y', strtotime($form->librarianApprovalDate)) . '</td>
         </tr>
       </table>
       <br>
@@ -111,15 +136,15 @@ $tpl =
       <table>
         <tr>
           <th>Running Balance:</th>
-          <td>ZMW 0.00</td>
+          <td>ZMW ' . $form->accountsRunningBalance . '</td>
         </tr>
       </table>
       <table>
         <tr>
           <th>Signed by Accountant:</th>
-          <td>The sig</td>
+          <td>' . $form->accountantApprovalStatus . '</td>
           <th>Date Signed:</th>
-          <td>some date</td>
+          <td>' . date('d-m-Y', strtotime($form->accountantApprovalDate)) . '</td>
         </tr>
       </table>
       <br>
@@ -136,19 +161,19 @@ $tpl =
       <table>
         <tr>
           <th>Items Due:</th>
-          <td>Some items</td>
+          <td>' . $form->hostelItemsDue . '</td>
         </tr>
         <tr>
           <th>Room Number:</th>
-          <td>Some room</td>
+          <td>' . $form->roomNo . '</td>
         </tr>
       </table>
       <table>
         <tr>
           <th>Signed by the Hostel Representative:</th>
-          <td>The sig</td>
+          <td>' . $form->hostelRepApprovalStatus . '</td>
           <th>Date Signed:</th>
-          <td>some date</td>
+          <td>' . date('d-m-Y', strtotime($form->accountantApprovalDate)) . '</td>
         </tr>
       </table>
     </div>
