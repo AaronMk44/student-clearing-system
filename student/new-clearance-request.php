@@ -3,10 +3,22 @@ session_start();
 
 // -----------------------------------------------
 
+if (
+  $_SESSION['is_logged_in'] == null ||
+  $_SESSION['is_logged_in'] == false
+) {
+  header('location: ../login.php');
+}
+
+// -----------------------------------------------
+
 include_once '../DTOs/Student.php';
-include_once '../models/StudentModel.php';
 include_once '../DTOs/Admin.php';
+include_once '../DTOs/ClearanceForm.php';
+include_once '../models/StudentModel.php';
 include_once '../models/AdminModel.php';
+include_once '../models/ClearanceFormModel.php';
+include_once '../mis/InputFilter.php';
 
 // -----------------------------------------------
 
@@ -18,7 +30,65 @@ $hods = $adminModel->getHODs();
 
 // -----------------------------------------------
 
+if (
+  isset($_POST['roomNumber']) &&
+  isset($_POST['yearOfStudy']) &&
+  isset($_POST['term']) &&
+  isset($_POST['hod'])
+) {
+  // -------------------------------------------------
 
+  $roomNo = InputFilter::sanitizeField($_POST['roomNumber']);
+  $yearOfStudy = InputFilter::sanitizeField($_POST['yearOfStudy']);
+  $term = InputFilter::sanitizeField($_POST['term']);
+  $hod = InputFilter::sanitizeField($_POST['hod']);
+
+  // -------------------------------------------------
+
+  $hodDTO = $adminModel->find($hod);
+  $librarianDTO = $adminModel->getLibrarian();
+  $accountantDTO = $adminModel->getAccountant();
+  $hostelRepDTO = $adminModel->getHostelRep();
+
+  // -------------------------------------------------
+
+  $f = new ClearanceForm();
+  $f->studentID = $student->studentID;
+  $f->studentName = $student->firstName . ' ' . $student->lastName;
+  $f->yearOfStudy = $yearOfStudy;
+  $f->roomNo = $roomNo;
+  $f->term = $term;
+  $f->hostelRepName = $hostelRepDTO->firstName . ' ' . $hostelRepDTO->lastName;
+  $f->hodName = $hodDTO->firstName . ' ' . $hodDTO->lastName;;
+  $f->librarianName = $librarianDTO->firstName . ' ' . $librarianDTO->lastName;
+  $f->accountantName = $accountantDTO->firstName . ' ' . $accountantDTO->lastName;
+
+  // -------------------------------------------------
+
+  $fm = new ClearanceFormModel();
+  $fm->add($f);
+
+  // -------------------------------------------------
+
+  $_SESSION['flashmessage'] =
+    '<div class="alert alert-success alert-dismissible" role="alert">
+      Room Clearance Request successfully created.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+
+  // -------------------------------------------------
+
+  header('location: all-forms.php');
+} else {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $error =
+      '<div class="alert alert-danger alert-dismissible" role="alert">
+      Email or Password are required fields. Try Again Please!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+  }
+  $error = '';
+}
 
 ?>
 
@@ -30,7 +100,7 @@ $hods = $adminModel->getHODs();
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-  <title>Dashboard - Student | Clearing System</title>
+  <title>Clearance Request | Clearing System</title>
   <meta name="description" content="" />
   <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -205,14 +275,14 @@ $hods = $adminModel->getHODs();
                 <h4>Clearance Request Form</h4>
               </div>
               <div class="card-body">
-                <form action="./new-clearance-request.php" method="post">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                   <div class="mb-3">
                     <label for="html5-number-input" class="form-label">Enter Room Number</label>
-                    <input class="form-control" type="number" min="1" max="250" required>
+                    <input class="form-control" name="roomNumber" type="number" min="1" max="250" required>
                   </div>
                   <div class="mb-3">
                     <label for="year-of-study-select" class="form-label">Year of Study</label>
-                    <select id="year-of-study-select" class="form-select" required>
+                    <select id="year-of-study-select" name="yearOfStudy" class="form-select" required>
                       <option value="1">First</option>
                       <option value="2">Second</option>
                       <option value="3">Third</option>
@@ -222,7 +292,7 @@ $hods = $adminModel->getHODs();
                   </div>
                   <div class="mb-3">
                     <label for="term-select" class="form-label">Term or Semester</label>
-                    <select id="term-select" class="form-select" required>
+                    <select id="term-select" name="term" class="form-select" required>
                       <option value="term one">Term One</option>
                       <option value="term two">Term Two</option>
                       <option value="term three">Term Three</option>
@@ -232,7 +302,7 @@ $hods = $adminModel->getHODs();
                   </div>
                   <div class="mb-3">
                     <label for="hod-select" class="form-label">Head of Department</label>
-                    <select id="hod-select" class="form-select" required>
+                    <select id="hod-select" name="hod" class="form-select" required>
                       <?php foreach ($hods as $hod) : ?>
                         <option value="<?= $hod->email ?>"><?= $hod->firstName . ' ' . $hod->lastName ?></option>
                       <?php endforeach; ?>
