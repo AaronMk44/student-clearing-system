@@ -1,9 +1,13 @@
 <?php
+session_start();
 
 include_once './models/StudentModel.php';
 include_once './models/AdminModel.php';
 include_once './DTOs/Student.php';
 include_once './DTOs/Admin.php';
+include_once __DIR__ . '/models/Authentication.php';
+include_once './mis/InputFilter.php';
+
 
 // $s = new Student();
 // $s->studentID = '2010534';
@@ -28,17 +32,15 @@ include_once './DTOs/Admin.php';
 
 
 // die();
-session_start();
+
 ?>
 
 <?php
 
-include_once __DIR__ . '/models/Authentication.php';
-
 if (isset($_POST['email']) && isset($_POST['password'])) {
 
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+  $email = InputFilter::sanitizeField($_POST['email']);
+  $password = InputFilter::sanitizeField($_POST['password']);
 
   $auth = new Authentication();
 
@@ -67,6 +69,15 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       Email or Password is incorrect. Try Again Please!
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>';
+} else {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $error =
+      '<div class="alert alert-danger alert-dismissible" role="alert">
+      Email or Password are required fields. Try Again Please!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+  }
+  $error = '';
 }
 
 ?>
@@ -114,7 +125,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
             <?= $error ?>
 
-            <form id="formAuthentication" class="mb-3" action="login.php" method="POST">
+            <form id="formAuthentication" class="mb-3" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter Student ID" autocomplete="off" autofocus required />
