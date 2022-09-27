@@ -1,11 +1,40 @@
 <?php
 session_start();
 
+// -----------------------------------------------
+
+if (
+  $_SESSION['is_logged_in'] == null ||
+  $_SESSION['is_logged_in'] == false
+) {
+  header('location: ../login.php');
+}
+
+// -----------------------------------------------
+
 include_once '../DTOs/Student.php';
+include_once '../DTOs/ClearanceForm.php';
 include_once '../models/StudentModel.php';
+include_once '../models/ClearanceFormModel.php';
+
+// -----------------------------------------------
+
 $model = new StudentModel();
 $student = $model->find($_SESSION['user_email']);
 
+// -----------------------------------------------
+
+$fm = new ClearanceFormModel();
+$forms = $fm->getFormsFor($student->studentID);
+
+// -----------------------------------------------
+$message = '';
+if ($_SESSION['flashmessage'] != '') {
+  $message = $_SESSION['flashmessage'];
+  $_SESSION['flashmessage'] = '';
+}
+
+// -----------------------------------------------
 ?>
 
 <!DOCTYPE html>
@@ -157,6 +186,8 @@ $student = $model->find($_SESSION['user_email']);
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
+            <?= $message ?>
+            <br>
             <div class="row">
               <div class="col-lg-9 mb-4 order-0">
                 <div class="card">
@@ -179,6 +210,59 @@ $student = $model->find($_SESSION['user_email']);
               </div>
               <div class="col-lg-3">
                 <button class="btn btn-primary mx-auto">+ New Clearance Request</button>
+              </div>
+            </div>
+            <div class="card">
+              <h5 class="card-header">Room Clearance Requests</h5>
+              <div class="table-responsive text-nowrap">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Room</th>
+                      <th>Year</th>
+                      <th>HOD</th>
+                      <th>Hostel Rep</th>
+                      <th>Librarian</th>
+                      <th>Accountant</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                    <?php foreach ($forms as $form) : ?>
+                      <tr>
+                        <td><strong>Room</strong> <?= $form->roomNo ?></td>
+                        <td><?= $form->yearOfStudy ?></td>
+                        <td><?= $form->hodName ?></td>
+                        <td><?= $form->hostelRepName ?></td>
+                        <td><?= $form->librarianName ?></td>
+                        <td><?= $form->accountantName ?></td>
+                        <td>
+                          <?php if (
+                            $form->hodApprovalStatus == 'pending' ||
+                            $form->hsotelRepApprovalStatus == 'pending' ||
+                            $form->librarianApprovalStatus == 'pending' ||
+                            $form->accountantApprovalStatus == 'pending'
+                          ) : ?>
+                            <span class="badge bg-label-warning me-1">Pending</span>
+                        </td>
+                      <?php else : ?>
+                        <span class="badge bg-label-warning me-1">Pending</span></td>
+                      <?php endif ?>
+                      <td>
+                        <div class="dropdown">
+                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="./generate-form.php?id=<?= $form->formID ?>">Download</a>
+                          </div>
+                        </div>
+                      </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
