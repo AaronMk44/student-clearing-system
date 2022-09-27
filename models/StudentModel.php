@@ -60,6 +60,28 @@ class StudentModel
     return $s;
   }
 
+  public function findByID(string $studentID): Student | null
+  {
+    $sql = "select * from $this->TABLE where student_id = '$studentID'";
+    $result = $this->db->connect()->query($sql);
+
+    $s = new Student();
+
+    foreach ($result as $r) {
+      $s->studentID = $r['student_id'];
+      $s->firstName = $r['first_name'];
+      $s->lastName = $r['last_name'];
+      $s->gender = $r['gender'];
+      $s->nrc = $r['nrc'];
+      $s->residentialAddress = $r['residential_address'];
+      $s->postalAddress = $r['postal_address'];
+      $s->email = $r['email'];
+      $s->password = $r['password'];
+    }
+
+    return $s;
+  }
+
   public function edit(Student $s): bool
   {
     $sql = "
