@@ -25,7 +25,7 @@ $student = $model->find($_SESSION['user_email']);
 // -----------------------------------------------
 
 $fm = new ClearanceFormModel();
-$forms = $fm->getFormsFor($student->studentID);
+$forms = $fm->getApprovedFormsFor($student->studentID);
 
 // -----------------------------------------------
 $message = '';
@@ -131,7 +131,7 @@ if ($_SESSION['flashmessage'] != '') {
             <!-- Search -->
             <div class="navbar-nav align-items-center">
               <div class="nav-item d-flex align-items-center">
-                <h4 class="pt-3">Student Clearing System</h4>
+                <h4 class="pt-3">Student Clearing System :: Student Portal</h4>
               </div>
             </div>
             <!-- /Search -->
@@ -240,7 +240,7 @@ if ($_SESSION['flashmessage'] != '') {
                         <td>
                           <?php if (
                             $form->hodApprovalStatus == 'pending' ||
-                            $form->hsotelRepApprovalStatus == 'pending' ||
+                            $form->hostelRepApprovalStatus == 'pending' ||
                             $form->librarianApprovalStatus == 'pending' ||
                             $form->accountantApprovalStatus == 'pending'
                           ) : ?>
