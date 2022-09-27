@@ -36,5 +36,6 @@ class Authentication
     $_SESSION['is_logged_in'] = true;
     $_SESSION['user_type'] = $userType;
     $_SESSION['user_email'] = $email;
+    $_SESSION['flashmessage'] = '';
   }
 }
