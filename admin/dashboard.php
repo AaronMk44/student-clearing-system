@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-include_once '../DTOs/Student.php';
-include_once '../models/StudentModel.php';
-$model = new StudentModel();
-$student = $model->find($_SESSION['user_email']);
+include_once '../DTOs/Admin.php';
+include_once '../models/AdminModel.php';
+$model = new AdminModel();
+$admin = $model->find($_SESSION['user_email']);
 
 ?>
 
@@ -16,7 +16,7 @@ $student = $model->find($_SESSION['user_email']);
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-  <title>Dashboard - Student | Clearing System</title>
+  <title>Dashboard - Admin | Clearing System</title>
   <meta name="description" content="" />
   <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,30 +57,30 @@ $student = $model->find($_SESSION['user_email']);
         <ul class="menu-inner py-1">
           <!-- Dashboard -->
           <li class="menu-item active">
-            <a href="index.html" class="menu-link">
+            <a href="./dashboard.php" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
 
           <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+            <a href="./all-forms.php" class="menu-link">
               <i class="menu-icon tf-icons bx bx-collection"></i>
               <div data-i18n="Basic">All Forms</div>
             </a>
           </li>
 
           <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+            <a href="./approved-forms.php" class="menu-link">
               <i class="menu-icon tf-icons bx bx-collection"></i>
               <div data-i18n="Basic">Approved Forms</div>
             </a>
           </li>
 
           <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+            <a href="./pending-forms.php" class="menu-link">
               <i class="menu-icon tf-icons bx bx-collection"></i>
-              <div data-i18n="Basic">Rejected Forms</div>
+              <div data-i18n="Basic">Pending Forms</div>
             </a>
           </li>
         </ul>
@@ -128,8 +128,8 @@ $student = $model->find($_SESSION['user_email']);
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <span class="fw-semibold d-block"><?= $student->firstName . ' ' . $student->lastName ?></span>
-                          <small class="text-muted">Student</small>
+                          <span class="fw-semibold d-block"><?= $admin->firstName . ' ' . $admin->lastName ?></span>
+                          <small class="text-muted">Admin</small>
                         </div>
                       </div>
                     </a>
@@ -157,28 +157,23 @@ $student = $model->find($_SESSION['user_email']);
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="row">
-              <div class="col-lg-9 mb-4 order-0">
-                <div class="card">
-                  <div class="d-flex align-items-end row">
-                    <div class="col-sm-7">
-                      <div class="card-body">
-                        <h5 class="card-title text-primary">Welcome back <?= $student->firstName ?>! 🎉</h5>
-                        <p class="mb-4">
-                          Explore your collection of clearance <span class="fw-bold">forms</span> from previous months. Create a new clearance request whenever needed.
-                        </p>
-                      </div>
+            <div class="col-lg-9 mb-4 order-0">
+              <div class="card">
+                <div class="d-flex align-items-end row">
+                  <div class="col-sm-7">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Welcome back <?= $admin->firstName ?>! 🎉</h5>
+                      <p class="mb-4">
+                        Explore the collection of room clearance <span class="fw-bold">requsts</span>, and approve them.
+                      </p>
                     </div>
-                    <div class="col-sm-5 text-center text-sm-left">
-                      <div class="card-body pb-0 px-0 px-md-4">
-                        <img src="../assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
-                      </div>
+                  </div>
+                  <div class="col-sm-5 text-center text-sm-left">
+                    <div class="card-body pb-0 px-0 px-md-4">
+                      <img src="../assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-3">
-                <button class="btn btn-primary mx-auto">+ New Clearance Request</button>
               </div>
             </div>
           </div>
