@@ -26,6 +26,16 @@ $sm = new StudentModel();
 $form = $fm->find($fmID);
 $s = $sm->findByID($form->studentID);
 
+if (
+  $form->hodApprovalStatus == 'pending' ||
+  $form->hostelRepApprovalStatus == 'pending' ||
+  $form->librarianApprovalStatus == 'pending' ||
+  $form->accountantApprovalStatus == 'pending'
+) {
+  echo 'Form pending approval';
+  die();
+}
+
 
 $tpl =
   '
@@ -92,7 +102,7 @@ $tpl =
           <th>Course Coordinator:</th>
           <td>' . $form->hodName . '</td>
           <th>Sign:</th>
-          <td>' . $form->hodApprovalStatus . '</td>
+          <td style="border: 2px solid green;">' . strtoupper($form->hodApprovalStatus) . '</td>
           <th>Date:</th>
           <td>' . date('d-m-Y', strtotime($form->hodApprovalDate)) . '</td>
         </tr>
@@ -117,7 +127,7 @@ $tpl =
       <table>
         <tr>
           <th>Signed by the Librarian:</th>
-          <td>' . $form->librarianApprovalStatus . '</td>
+          <td style="border: 2px solid green;">' . strtoupper($form->librarianApprovalStatus) . '</td>
           <th>Date Signed:</th>
           <td>' . date('d-m-Y', strtotime($form->librarianApprovalDate)) . '</td>
         </tr>
@@ -142,7 +152,7 @@ $tpl =
       <table>
         <tr>
           <th>Signed by Accountant:</th>
-          <td>' . $form->accountantApprovalStatus . '</td>
+          <td style="border: 2px solid green;">' . strtoupper($form->accountantApprovalStatus) . '</td>
           <th>Date Signed:</th>
           <td>' . date('d-m-Y', strtotime($form->accountantApprovalDate)) . '</td>
         </tr>
@@ -171,7 +181,7 @@ $tpl =
       <table>
         <tr>
           <th>Signed by the Hostel Representative:</th>
-          <td>' . $form->hostelRepApprovalStatus . '</td>
+          <td style="border: 2px solid green;">' . strtoupper($form->hostelRepApprovalStatus) . '</td>
           <th>Date Signed:</th>
           <td>' . date('d-m-Y', strtotime($form->accountantApprovalDate)) . '</td>
         </tr>
