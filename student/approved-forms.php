@@ -247,7 +247,7 @@ if ($_SESSION['flashmessage'] != '') {
                             <span class="badge bg-label-warning me-1">Pending</span>
                         </td>
                       <?php else : ?>
-                        <span class="badge bg-label-warning me-1">Pending</span></td>
+                        <span class="badge bg-label-success me-1">Approved</span></td>
                       <?php endif ?>
                       <td>
                         <div class="dropdown">
