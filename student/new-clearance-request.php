@@ -54,7 +54,6 @@ if (
 
   $f = new ClearanceForm();
   $f->studentID = $student->studentID;
-  $f->studentName = $student->firstName . ' ' . $student->lastName;
   $f->yearOfStudy = $yearOfStudy;
   $f->roomNo = $roomNo;
   $f->term = $term;
