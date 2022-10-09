@@ -12,7 +12,33 @@ class StudentModel
     $this->db = new Database();
   }
 
-  public function add(Student $s): bool
+  public function findAll()
+  {
+    $sql = "select * from $this->TABLE";
+    $result = $this->db->connect()->query($sql);
+
+    $list = [];
+
+    foreach ($result as $r) {
+      $s = new Student();
+
+      $s->studentID = $r['student_id'];
+      $s->firstName = $r['first_name'];
+      $s->lastName = $r['last_name'];
+      $s->gender = $r['gender'];
+      $s->residentialAddress = $r['residential_address'];
+      $s->postalAddress = $r['postal_address'];
+      $s->email = $r['email'];
+      $s->password = $r['password'];
+
+      $list[] = $s;
+    }
+
+
+    return $list;
+  }
+
+  public function add(Student $s)
   {
     $hashedPasssword = password_hash($s->password, PASSWORD_BCRYPT);
 
@@ -31,12 +57,7 @@ class StudentModel
         '$hashedPasssword'
       )";
 
-    try {
-      $this->db->connect()->query($sql);
-      return true;
-    } catch (\Throwable $th) {
-      return false;
-    }
+    $this->db->connect()->query($sql);
   }
 
   public function find(string $email): Student | null
