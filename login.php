@@ -5,33 +5,12 @@ include_once './models/StudentModel.php';
 include_once './models/AdminModel.php';
 include_once './DTOs/Student.php';
 include_once './DTOs/Admin.php';
-include_once __DIR__ . '/models/Authentication.php';
+include_once './models/Authentication.php';
 include_once './mis/InputFilter.php';
+include_once '../mis/Preprocessor.php';
 
 
-// $s = new Student();
-// $s->studentID = '2010534';
-// $s->firstName = 'Aaron';
-// $s->lastName = 'Mkandawire';
-// $s->gender = 'male';
-// $s->residentialAddress = '7A Mungule, Northrise';
-// $s->postalAddress = '';
-// $s->email = 'aaron@gmail.com';
-// $s->password = '123456789';
-
-// 
-// $model->add($s);
-
-// $model = new StudentModel();
-// $s = $model->find('aaron@gmail.com');
-
-// $s->firstName = 'Naomi';
-// $model->edit($s);
-
-// var_dump($s);
-
-
-// die();
+if ($_SESSION['is_logged_in'] == true) Preprocessor::redirectUser();
 
 ?>
 
