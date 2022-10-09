@@ -12,6 +12,30 @@ class AdminModel
     $this->db = new Database();
   }
 
+  public function findAll()
+  {
+    $sql = "select * from $this->TABLE";
+    $result = $this->db->connect()->query($sql);
+
+    $list = [];
+
+    foreach ($result as $r) {
+      $a = new Admin();
+
+      $a->adminID = $r['admin_id'];
+      $a->firstName = $r['first_name'];
+      $a->lastName = $r['last_name'];
+      $a->gender = $r['gender'];
+      $a->adminRole = $r['admin_role'];
+      $a->email = $r['email'];
+      $a->password = $r['password'];
+
+      $list[] = $a;
+    }
+
+    return $list;
+  }
+
   public function add(Admin $a): bool
   {
     $hashedPasssword = password_hash($a->password, PASSWORD_BCRYPT);
