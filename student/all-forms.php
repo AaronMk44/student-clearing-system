@@ -16,6 +16,11 @@ include_once '../DTOs/Student.php';
 include_once '../DTOs/ClearanceForm.php';
 include_once '../models/StudentModel.php';
 include_once '../models/ClearanceFormModel.php';
+include_once '../mis/Preprocessor.php';
+
+// -----------------------------------------------
+
+if ($_SESSION['user_type'] != 'student') Preprocessor::redirectUser();
 
 // -----------------------------------------------
 
@@ -209,7 +214,7 @@ if ($_SESSION['flashmessage'] != '') {
                 </div>
               </div>
               <div class="col-lg-3">
-                <button class="btn btn-primary mx-auto">+ New Clearance Request</button>
+                <a href="./new-clearance-request.php" class="btn btn-primary mx-auto">+ New Clearance Request</a>
               </div>
             </div>
             <div class="card">

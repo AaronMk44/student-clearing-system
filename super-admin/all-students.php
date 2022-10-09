@@ -20,6 +20,10 @@ include_once '../mis/Preprocessor.php';
 
 // -----------------------------------------------
 
+if ($_SESSION['user_type'] != 'super-admin') Preprocessor::redirectUser();
+
+// -----------------------------------------------
+
 $model = new AdminModel();
 $admin = $model->find($_SESSION['user_email']);
 

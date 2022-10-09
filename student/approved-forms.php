@@ -16,6 +16,11 @@ include_once '../DTOs/Student.php';
 include_once '../DTOs/ClearanceForm.php';
 include_once '../models/StudentModel.php';
 include_once '../models/ClearanceFormModel.php';
+include_once '../mis/Preprocessor.php';
+
+// -----------------------------------------------
+
+if ($_SESSION['user_type'] != 'student') Preprocessor::redirectUser();
 
 // -----------------------------------------------
 
