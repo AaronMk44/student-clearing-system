@@ -16,21 +16,19 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `administrator`
+-- Table structure for table `administrators`
 --
 
-DROP TABLE IF EXISTS `administrator`;
+DROP TABLE IF EXISTS `administrators`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `administrator` (
+CREATE TABLE `administrators` (
   `admin_id` int(8) unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(30) NOT NULL,
-  `profile_photo` varchar(255) NOT NULL,
   `gender` enum('male','female') NOT NULL,
   `admin_role` enum('super','hod','accountant','librarian','hostel_representative') NOT NULL,
   `email` varchar(30) NOT NULL,
-  `phone` varchar(15) NOT NULL,
   `password` varchar(255) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
   `date_updated` datetime NOT NULL DEFAULT current_timestamp(),
@@ -40,12 +38,12 @@ CREATE TABLE `administrator` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `administrator`
+-- Dumping data for table `administrators`
 --
 
-LOCK TABLES `administrator` WRITE;
-/*!40000 ALTER TABLE `administrator` DISABLE KEYS */;
-/*!40000 ALTER TABLE `administrator` ENABLE KEYS */;
+LOCK TABLES `administrators` WRITE;
+/*!40000 ALTER TABLE `administrators` DISABLE KEYS */;
+/*!40000 ALTER TABLE `administrators` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -58,24 +56,23 @@ DROP TABLE IF EXISTS `clearance_forms`;
 CREATE TABLE `clearance_forms` (
   `form_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `student_id` int(8) NOT NULL,
-  `student_name` varchar(50) NOT NULL,
   `student_year_of_study` year(4) NOT NULL,
   `student_room_no` int(4) NOT NULL,
   `clear_for_term` enum('term one','term two','term three','semester one','semester two') NOT NULL,
   `hostel_rep_name` varchar(50) NOT NULL,
-  `hostel_rep_sign_status` enum('signed','not signed') NOT NULL,
+  `hostel_rep_approval_status` enum('signed','not signed') NOT NULL,
   `hostel_items_due` text DEFAULT NULL,
-  `hostel_rep_sign_date` datetime DEFAULT NULL,
+  `hostel_rep_approval_date` datetime DEFAULT NULL,
   `hod_name` varchar(50) NOT NULL,
-  `hod_sign_status` enum('signed','not signed') NOT NULL,
-  `hod_sign_date` datetime DEFAULT NULL,
+  `hod_approval_status` enum('signed','not signed') NOT NULL,
+  `hod_approval_date` datetime DEFAULT NULL,
   `librarian_name` varchar(50) NOT NULL,
-  `librarian_sign_status` enum('signed','not signed') NOT NULL,
+  `librarian_approval_status` enum('signed','not signed') NOT NULL,
   `library_items_due` text DEFAULT NULL,
-  `librarian_sign_date` datetime DEFAULT NULL,
+  `librarian_approval_date` datetime DEFAULT NULL,
   `accountant_name` varchar(50) NOT NULL,
-  `accountant_sign_status` enum('signed','not signed') NOT NULL,
-  `accountant_sign_date` datetime DEFAULT NULL,
+  `accountant_approval_status` enum('signed','not signed') NOT NULL,
+  `accountant_approval_date` datetime DEFAULT NULL,
   `student_running_balance` float(10,2) NOT NULL,
   `date_form_created` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`form_id`)
@@ -92,22 +89,22 @@ LOCK TABLES `clearance_forms` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `student`
+-- Table structure for table `students`
 --
 
-DROP TABLE IF EXISTS `student`;
+DROP TABLE IF EXISTS `students`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `student` (
+CREATE TABLE `students` (
   `student_id` int(8) unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(30) NOT NULL,
   `gender` enum('male','female') NOT NULL,
+  `nrc` varchar(20) unique NOT NULL,
+  `residential_address` varchar(100) NOT NULL,
+  `postal_address` varchar(100) NOT NULL,
   `program_of_study` varchar(100) NOT NULL,
-  `registration_year` year(4) DEFAULT NULL,
-  `profile_photo` varchar(255) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `phone` varchar(15) NOT NULL,
   `password` varchar(255) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
   `date_updated` datetime NOT NULL DEFAULT current_timestamp(),
@@ -117,12 +114,12 @@ CREATE TABLE `student` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `student`
+-- Dumping data for table `students`
 --
 
-LOCK TABLES `student` WRITE;
-/*!40000 ALTER TABLE `student` DISABLE KEYS */;
-/*!40000 ALTER TABLE `student` ENABLE KEYS */;
+LOCK TABLES `students` WRITE;
+/*!40000 ALTER TABLE `students` DISABLE KEYS */;
+/*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
