@@ -207,6 +207,7 @@ if ($_SESSION['flashmessage'] != '') {
                 <table class="table table-striped">
                   <thead>
                     <tr>
+                      <th>S/N</th>
                       <th>Room</th>
                       <th>Year</th>
                       <th>HOD</th>
@@ -216,29 +217,30 @@ if ($_SESSION['flashmessage'] != '') {
                       <th>Status</th>
                     </tr>
                   </thead>
-                  <tbody class="table-border-bottom-0">
-                    <?php foreach ($forms as $form) : ?>
-                      <tr>
-                        <td><strong>Room</strong> <?= $form->roomNo ?></td>
-                        <td><?= $form->yearOfStudy ?></td>
-                        <td><?= $form->hodName ?></td>
-                        <td><?= $form->hostelRepName ?></td>
-                        <td><?= $form->librarianName ?></td>
-                        <td><?= $form->accountantName ?></td>
-                        <td>
-                          <?php if (
-                            $form->hodApprovalStatus == 'pending' ||
-                            $form->hostelRepApprovalStatus == 'pending' ||
-                            $form->librarianApprovalStatus == 'pending' ||
-                            $form->accountantApprovalStatus == 'pending'
-                          ) : ?>
-                            <span class="badge bg-label-warning me-1">Pending</span>
-                        </td>
-                      <?php else : ?>
-                        <span class="badge bg-label-warning me-1">Pending</span></td>
-                      <?php endif ?>
-                      </tr>
-                    <?php endforeach; ?>
+                  <?php $index = 0; ?>
+                  <?php foreach ($forms as $form) : ?>
+                    <tr>
+                      <td><?= ++$index ?></td>
+                      <td><strong>Room</strong> <?= $form->roomNo ?></td>
+                      <td><?= $form->yearOfStudy ?></td>
+                      <td><?= $form->hodName ?></td>
+                      <td><?= $form->hostelRepName ?></td>
+                      <td><?= $form->librarianName ?></td>
+                      <td><?= $form->accountantName ?></td>
+                      <td>
+                        <?php if (
+                          $form->hodApprovalStatus == 'pending' ||
+                          $form->hostelRepApprovalStatus == 'pending' ||
+                          $form->librarianApprovalStatus == 'pending' ||
+                          $form->accountantApprovalStatus == 'pending'
+                        ) : ?>
+                          <span class="badge bg-label-warning me-1">Pending</span>
+                      </td>
+                    <?php else : ?>
+                      <span class="badge bg-label-warning me-1">Pending</span></td>
+                    <?php endif ?>
+                    </tr>
+                  <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>

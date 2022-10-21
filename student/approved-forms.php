@@ -223,6 +223,7 @@ if ($_SESSION['flashmessage'] != '') {
                 <table class="table table-striped">
                   <thead>
                     <tr>
+                      <th>S/N</th>
                       <th>Room</th>
                       <th>Year</th>
                       <th>HOD</th>
@@ -234,8 +235,10 @@ if ($_SESSION['flashmessage'] != '') {
                     </tr>
                   </thead>
                   <tbody class="table-border-bottom-0">
+                    <?php $index = 0; ?>
                     <?php foreach ($forms as $form) : ?>
                       <tr>
+                        <td><?= ++$index ?></td>
                         <td><strong>Room</strong> <?= $form->roomNo ?></td>
                         <td><?= $form->yearOfStudy ?></td>
                         <td><?= $form->hodName ?></td>
