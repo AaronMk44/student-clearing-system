@@ -20,6 +20,7 @@ class Authentication
     }
     return false;
   }
+
   public function loginAdmin(string $email, string $password): bool
   {
     $sql = "select password from administrators where email = '$email'";
@@ -28,6 +29,7 @@ class Authentication
     foreach ($result as $r) {
       return password_verify($password, $r['password']);
     }
+
     return false;
   }
 

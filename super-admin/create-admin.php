@@ -71,7 +71,7 @@ if (
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-  <title>Clearance Request | Clearing System</title>
+  <title>Create Admin | Clearing System</title>
   <meta name="description" content="" />
   <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -174,8 +174,8 @@ if (
                         </div>
                       </div>
                       <div class="flex-grow-1">
-                        <span class="fw-semibold d-block"><?= $student->firstName . ' ' . $student->lastName ?></span>
-                        <small class="text-muted">Student</small>
+                        <span class="fw-semibold d-block"><?= $admin->firstName . ' ' . $admin->lastName ?></span>
+                        <small class="text-muted">Super Admin</small>
                       </div>
                     </div>
                   </a>
