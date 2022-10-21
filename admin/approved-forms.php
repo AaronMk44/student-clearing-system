@@ -137,7 +137,7 @@ if ($_SESSION['flashmessage'] != '') {
             <!-- Search -->
             <div class="navbar-nav align-items-center">
               <div class="nav-item d-flex align-items-center">
-                <h4 class="pt-3">Student Clearing System :: <?= strtoupper($admin->adminRole) ?> Portal</h4>
+                <h4 class="pt-3"> <?= strtoupper($admin->adminRole) ?> Portal</h4>
               </div>
             </div>
             <!-- /Search -->
