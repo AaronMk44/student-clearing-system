@@ -7,11 +7,12 @@ include_once './DTOs/Student.php';
 include_once './DTOs/Admin.php';
 include_once './models/Authentication.php';
 include_once './mis/InputFilter.php';
-include_once '../mis/Preprocessor.php';
+include_once './mis/Preprocessor.php';
 
 
-if ($_SESSION['is_logged_in'] == true) Preprocessor::redirectUser();
-
+if (isset($_SESSION['is_logged_in']) &&  $_SESSION['is_logged_in'] == true) {
+  Preprocessor::redirectUser();
+}
 ?>
 
 <?php
@@ -107,7 +108,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             <form id="formAuthentication" class="mb-3" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Student ID" autocomplete="off" autofocus required />
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" autocomplete="off" autofocus required />
               </div>
               <div class="mb-3 form-password-toggle">
                 <div class="d-flex justify-content-between">
