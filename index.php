@@ -13,7 +13,16 @@ if ($is_logged_in === null || $is_logged_in === false) {
       header('location: student/dashboard.php');
       break;
 
+    case 'admin':
+      header('location: admin/dashboard.php');
+      break;
+
+    case 'super-admin':
+      header('location: super-admin/dashboard.php');
+      break;
+
     default:
+      header('location: logout.php');
       break;
   }
 }
