@@ -60,9 +60,9 @@ class StudentModel
     $this->db->connect()->query($sql);
   }
 
-  public function find(string $email): Student | null
+  public function find(string $identity): Student | null
   {
-    $sql = "select * from $this->TABLE where email = '$email'";
+    $sql = "select * from $this->TABLE where email = '$identity' or student_id = '$identity'";
     $result = $this->db->connect()->query($sql);
 
     $s = new Student();
@@ -72,6 +72,7 @@ class StudentModel
       $s->firstName = $r['first_name'];
       $s->lastName = $r['last_name'];
       $s->gender = $r['gender'];
+      $s->nrc = $r['nrc'];
       $s->residentialAddress = $r['residential_address'];
       $s->postalAddress = $r['postal_address'];
       $s->email = $r['email'];
@@ -103,7 +104,7 @@ class StudentModel
     return $s;
   }
 
-  public function edit(Student $s): bool
+  public function edit(Student $s, string $oldID): void
   {
     $sql = "
     update $this->TABLE 
@@ -117,13 +118,14 @@ class StudentModel
       postal_address = '$s->postalAddress',
       program_of_study = '$s->program',
       email = '$s->email'
-    where student_id = '$s->studentID' ";
+    where student_id = '$oldID' ";
 
-    try {
-      $this->db->connect()->query($sql);
-      return true;
-    } catch (\Throwable $th) {
-      return false;
-    }
+    $this->db->connect()->query($sql);
+  }
+
+  public function delete(string $studentID)
+  {
+    $sql = "delete from $this->TABLE where student_id = '$studentID'";
+    $this->db->connect()->query($sql);
   }
 }
