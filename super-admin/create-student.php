@@ -44,6 +44,7 @@ if (
   $s->firstName = InputFilter::sanitizeField($_POST['firstName']);
   $s->lastName = InputFilter::sanitizeField($_POST['lastName']);
   $s->gender = InputFilter::sanitizeField($_POST['gender']);
+  $s->nrc = InputFilter::sanitizeField($_POST['nrc']);
   $s->program = InputFilter::sanitizeField($_POST['program']);
   $s->residentialAddress = InputFilter::sanitizeField($_POST['residentialAddress']);
   $s->postalAddress = InputFilter::sanitizeField($_POST['postalAddress']);
@@ -179,8 +180,8 @@ if (
                         </div>
                       </div>
                       <div class="flex-grow-1">
-                        <span class="fw-semibold d-block"><?= $student->firstName . ' ' . $student->lastName ?></span>
-                        <small class="text-muted">Student</small>
+                        <span class="fw-semibold d-block"><?= $admin->firstName . ' ' . $admin->lastName ?></span>
+                        <small class="text-muted">Super Admin</small>
                       </div>
                     </div>
                   </a>
