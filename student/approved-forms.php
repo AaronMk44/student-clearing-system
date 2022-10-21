@@ -219,7 +219,7 @@ if ($_SESSION['flashmessage'] != '') {
             </div>
             <div class="card">
               <h5 class="card-header">Room Clearance Requests</h5>
-              <div class="table-responsive text-nowrap">
+              <div class="">
                 <table class="table table-striped">
                   <thead>
                     <tr>
