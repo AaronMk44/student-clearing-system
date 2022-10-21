@@ -215,7 +215,7 @@ $shouldApprove = true;
                     </div>
                   </div>
                 </div>
-              </div>s
+              </div>
             </div>
             <div class="card">
               <h5 class="card-header">Room Clearance Requests</h5>
@@ -291,6 +291,7 @@ $shouldApprove = true;
                           <?php endif ?>
                         </td>
                       </tr>
+                      <?php $shouldApprove = true; ?>
                     <?php endforeach; ?>
                   </tbody>
                 </table>
