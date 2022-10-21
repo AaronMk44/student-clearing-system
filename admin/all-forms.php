@@ -40,6 +40,7 @@ if ($_SESSION['flashmessage'] != '') {
 }
 
 // -----------------------------------------------
+$shouldApprove = true;
 ?>
 
 <!DOCTYPE html>
@@ -138,7 +139,7 @@ if ($_SESSION['flashmessage'] != '') {
             <!-- Search -->
             <div class="navbar-nav align-items-center">
               <div class="nav-item d-flex align-items-center">
-                <h4 class="pt-3">Student Clearing System :: <?= strtoupper($admin->adminRole) ?> Portal</h4>
+                <h4 class="pt-3"> <?= strtoupper($admin->adminRole) ?> Portal</h4>
               </div>
             </div>
             <!-- /Search -->
@@ -222,6 +223,7 @@ if ($_SESSION['flashmessage'] != '') {
                 <table id="mydt" class="table table-striped">
                   <thead>
                     <tr>
+                      <th>S/N</th>
                       <th>Room</th>
                       <th>Year</th>
                       <th>Student</th>
@@ -230,8 +232,10 @@ if ($_SESSION['flashmessage'] != '') {
                     </tr>
                   </thead>
                   <tbody class="table-border-bottom-0">
-                    <?php foreach ($forms as $form) : ?>
+                    <?php $index = 0;
+                    foreach ($forms as $form) : ?>
                       <tr>
+                        <td><?= ++$index ?></td>
                         <td><strong>Room</strong> <?= $form->roomNo ?></td>
                         <td><?= $form->yearOfStudy ?></td>
                         <td><?= $form->studentName ?></td>
@@ -241,6 +245,7 @@ if ($_SESSION['flashmessage'] != '') {
                             <?php if ($form->hodApprovalStatus == 'pending') : ?>
                               <span class="badge bg-label-warning me-1">Pending</span>
                             <?php else : ?>
+                              <?php $shouldApprove = false; ?>
                               <span class="badge bg-label-success me-1">Approved</span>
                             <?php endif; ?>
                           <?php endif; ?>
@@ -251,6 +256,7 @@ if ($_SESSION['flashmessage'] != '') {
                             <?php if ($form->librarianApprovalStatus == 'pending') : ?>
                               <span class="badge bg-label-warning me-1">Pending</span>
                             <?php else : ?>
+                              <?php $shouldApprove = false; ?>
                               <span class="badge bg-label-success me-1">Approved</span>
                             <?php endif; ?>
                           <?php endif; ?>
@@ -261,6 +267,7 @@ if ($_SESSION['flashmessage'] != '') {
                             <?php if ($form->accountantApprovalStatus == 'pending') : ?>
                               <span class="badge bg-label-warning me-1">Pending</span>
                             <?php else : ?>
+                              <?php $shouldApprove = false; ?>
                               <span class="badge bg-label-success me-1">Approved</span>
                             <?php endif; ?>
                           <?php endif; ?>
@@ -271,12 +278,17 @@ if ($_SESSION['flashmessage'] != '') {
                             <?php if ($form->hostelRepApprovalStatus == 'pending') : ?>
                               <span class="badge bg-label-warning me-1">Pending</span>
                             <?php else : ?>
+                              <?php $shouldApprove = false; ?>
                               <span class="badge bg-label-success me-1">Approved</span>
                             <?php endif; ?>
                           <?php endif; ?>
                         </td>
                         <td>
-                          <a href="./approve-form.php?id=<?= $form->formID ?>">Approve</a>
+                          <?php if ($shouldApprove) : ?>
+                            <a href="./approve-form.php?id=<?= $form->formID ?>">Approve</a>
+                          <?php else : ?>
+                            No Action...
+                          <?php endif ?>
                         </td>
                       </tr>
                     <?php endforeach; ?>

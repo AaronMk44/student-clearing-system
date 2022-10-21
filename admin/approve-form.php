@@ -96,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // -------------------------------------------------
 }
 
+$shouldApprove = true;
 // -----------------------------------------------
 ?>
 
@@ -217,8 +218,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                       </div>
                       <div class="flex-grow-1">
-                        <span class="fw-semibold d-block"><?= $student->firstName . ' ' . $student->lastName ?></span>
-                        <small class="text-muted">Student</small>
+                        <span class="fw-semibold d-block"><?= $admin->firstName . ' ' . $admin->lastName ?></span>
+                        <small class="text-muted">Admin</small>
                       </div>
                     </div>
                   </a>
@@ -286,28 +287,73 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <p>Student Name :: <?= $form->studentName ?></p>
                 <p>Student ID :: <?= $form->studentID ?></p>
                 <p>Room No :: <?= $form->roomNo ?></p>
-                <p>Status :: <span class="badge bg-label-warning me-1">Pending</span></p>
-                <hr>
+                <p>Status ::
+                  <?php if ($admin->adminRole == 'hod') : ?>
+
+                    <?php if ($form->hodApprovalStatus == 'pending') : ?>
+                      <span class="badge bg-label-warning me-1">Pending</span>
+                    <?php else : ?>
+                      <?php $shouldApprove = false; ?>
+                      <span class="badge bg-label-success me-1">Approved</span>
+                    <?php endif; ?>
+                  <?php endif; ?>
+
+                  <!--  -->
+
+                  <?php if ($admin->adminRole == 'librarian') : ?>
+                    <?php if ($form->librarianApprovalStatus == 'pending') : ?>
+                      <span class="badge bg-label-warning me-1">Pending</span>
+                    <?php else : ?>
+                      <?php $shouldApprove = false; ?>
+                      <span class="badge bg-label-success me-1">Approved</span>
+                    <?php endif; ?>
+                  <?php endif; ?>
+
+                  <!--  -->
+
+                  <?php if ($admin->adminRole == 'accountant') : ?>
+                    <?php if ($form->accountantApprovalStatus == 'pending') : ?>
+                      <span class="badge bg-label-warning me-1">Pending</span>
+                    <?php else : ?>
+                      <?php $shouldApprove = false; ?>
+                      <span class="badge bg-label-success me-1">Approved</span>
+                    <?php endif; ?>
+                  <?php endif; ?>
+
+                  <!--  -->
+
+                  <?php if ($admin->adminRole == 'hostel_representative') : ?>
+                    <?php if ($form->hostelRepApprovalStatus == 'pending') : ?>
+                      <span class="badge bg-label-warning me-1">Pending</span>
+                    <?php else : ?>
+                      <?php $shouldApprove = false; ?>
+                      <span class="badge bg-label-success me-1">Approved</span>
+                    <?php endif; ?>
+                  <?php endif; ?>
+                  <hr>
 
 
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?id=1" method="post">
-                  <?php if ($admin->adminRole == 'librarian' || $admin->adminRole == 'hostel_representative') : ?>
-                    <div class="mb-3">
-                      <label for="html5-number-input" class="form-label">Enter Items Due</label>
-                      <textarea class="form-control" name="itemsDue"></textarea>
-                    </div>
-                  <?php endif; ?>
+                  <?php if ($shouldApprove) : ?>
+                    <?php if ($admin->adminRole == 'librarian' || $admin->adminRole == 'hostel_representative') : ?>
+                      <div class="mb-3">
+                        <label for="html5-number-input" class="form-label">Enter Items Due</label>
+                        <textarea class="form-control" name="itemsDue"></textarea>
+                      </div>
+                    <?php endif; ?>
 
-                  <?php if ($admin->adminRole == 'accountant') : ?>
-                    <div class="mb-3">
-                      <label for="html5-number-input" class="form-label">Enter Running Balance</label>
-                      <input class="form-control" name="runningBalance" type="number" required>
-                    </div>
-                  <?php endif; ?>
+                    <?php if ($admin->adminRole == 'accountant') : ?>
+                      <div class="mb-3">
+                        <label for="html5-number-input" class="form-label">Enter Running Balance</label>
+                        <input class="form-control" name="runningBalance" type="number" required>
+                      </div>
+                    <?php endif; ?>
 
-                  <input type="hidden" name="id" value="<?= $_REQUEST['id'] ?>">
+                    <input type="hidden" name="id" value="<?= $_REQUEST['id'] ?>">
 
-                  <button class="btn btn-primary w-100" type="submit">Approve</button>
+
+                    <button class="btn btn-primary w-100" type="submit">Approve</button>
+                  <?php endif ?>
                 </form>
               </div>
             </div>
